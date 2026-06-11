@@ -2275,28 +2275,32 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-  const SUPABASE_URL = "https://iweepmqeowrwoqhrmrgu.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_hvqBgfDO7N0KJdpEX6gNJA_fMc4mr8P";
+  var SUPABASE_URL = "https://iweepmqeowrwoqhrmrgu.supabase.co";
+  var SUPABASE_KEY = "sb_publishable_hvqBgfDO7N0KJdpEX6gNJA_fMc4mr8P";
 
-  const db = window.supabase.createClient(https://iweepmqeowrwoqhrmrgu.supabase.co, sb_publishable_hvqBgfDO7N0KJdpEX6gNJA_fMc4mr8P);
+  var db = window.supabase.createClient(https://iweepmqeowrwoqhrmrgu.supabase.coL, sb_publishable_hvqBgfDO7N0KJdpEX6gNJA_fMc4mr8P);
 
-  console.log("Supabase connected:", db);
-</script>
-  <script>
+  console.log("Supabase client dibuat:", db);
+
   async function testSupabaseConnection() {
-    const { data, error } = await db
-      .from("settings")
-      .select("*")
-      .limit(1);
+    try {
+      var result = await db
+        .from("settings")
+        .select("*")
+        .limit(1);
 
-    if (error) {
-      console.error("Supabase error:", error);
-      alert("Supabase gagal konek. Cek URL, key, atau policy RLS.");
-      return;
+      if (result.error) {
+        console.error("Supabase error:", result.error);
+        alert("Supabase gagal konek. Cek URL, key, tabel settings, atau policy RLS.");
+        return;
+      }
+
+      console.log("Supabase berhasil konek:", result.data);
+      alert("Supabase berhasil konek!");
+    } catch (err) {
+      console.error("Error test Supabase:", err);
+      alert("Ada error JavaScript saat test Supabase. Cek Console.");
     }
-
-    console.log("Supabase berhasil konek:", data);
-    alert("Supabase berhasil konek!");
   }
 
   testSupabaseConnection();
