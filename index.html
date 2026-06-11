@@ -2272,5 +2272,34 @@
       showToast.timer = window.setTimeout(() => el.toast.classList.remove("show"), 2600);
     }
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  const SUPABASE_URL = "NEXT_PUBLIC_SUPABASE_URL=https://iweepmqeowrwoqhrmrgu.supabase.co";
+  const SUPABASE_KEY = "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_hvqBgfDO7N0KJdpEX6gNJA_fMc4mr8P";
+
+  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  console.log("Supabase connected:", db);
+</script>
+  <script>
+  async function testSupabaseConnection() {
+    const { data, error } = await db
+      .from("settings")
+      .select("*")
+      .limit(1);
+
+    if (error) {
+      console.error("Supabase error:", error);
+      alert("Supabase gagal konek. Cek URL, key, atau policy RLS.");
+      return;
+    }
+
+    console.log("Supabase berhasil konek:", data);
+    alert("Supabase berhasil konek!");
+  }
+
+  testSupabaseConnection();
+</script>
 </body>
 </html>
